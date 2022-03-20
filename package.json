@@ -1,0 +1,81 @@
+{
+  "name": "web-coding-challenge-frontend",
+  "description": "Neuronation coding challenge template for frontend candidates",
+  "version": "1.1.0",
+  "engines": {
+    "node": "^14.0.0"
+  },
+  "private": true,
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.1.1",
+    "react-scripts": "4.0.3",
+    "redux": "^4.1.0",
+    "redux-devtools-extension": "^2.13.8",
+    "typescript": "^4.4.4",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "coverage": "yarn test --coverage --watchAll=false"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      "Edge >= 18",
+      "Firefox >= 67",
+      "Safari >= 12.1",
+      "Chrome >= 75",
+      "not dead",
+      "not op_mini all",
+      ">0.2%"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/src/reportWebVitals.ts",
+      "!<rootDir>/src/index.tsx",
+      "!<rootDir>/src/setupTests.ts"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.0.0",
+    "@types/react": "^17.0.30",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-redux": "^7.1.16",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.0",
+    "prettier": "2.6.0",
+    "prop-types": "^15.8.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
