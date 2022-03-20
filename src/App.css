@@ -2,8 +2,23 @@
     min-height: 100vh;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
     gap: 30px;
     width: 100%;
 
 }
+.Game {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    gap: 30px;
+    text-align: center;
 
+}
+
+
+.RoundBanner {
+    padding: 30px;
+
+}

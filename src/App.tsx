@@ -44,26 +44,31 @@ export const AppFC: FC<IAppProps> = ({
     const [botMove, setBotMove] = useState<string>('');
     const [roundResult, setRoundResult] = useState<boolean>(null);
 
-
+    const gameRule: { [key: string]: MoveType, } = {
+      Cavalry: MoveType.Archers,
+      Archers: MoveType.Pikemen,
+      Pikemen: MoveType.Cavalry,
+    };
     const botMoves = [...Object.values(MoveType)];
-    const botMovesPreff = [0.5, 0.25, 0.25];
+    const botMovesPreff: number[] = [0.5, 0.25, 0.25];
 
     useEffect(() => {
 
       if (!started) {
         onStart();
       }
-      shuffle(botMovesPreff);
+      //change user preferred move
+      shufflePreferrance(botMovesPreff);
     }, [started, onStart, botMovesPreff]);
-    const gameRule: { [key: string]: MoveType, } = {
-      Cavalry: MoveType.Archers,
-      Archers: MoveType.Pikemen,
-      Pikemen: MoveType.Cavalry,
-    };
+
+
     const checkPlayerMoves = (playerMove: MoveType, currentRound) => {
-      if (currentRound > 19) {
+      //finish game at 20 round
+      if (currentRound >= 20) {
         return;
       }
+
+      //get Bot game randomly
       const _botMove: string = getBotMove(botMoves);
 
       //set users move
@@ -72,34 +77,33 @@ export const AppFC: FC<IAppProps> = ({
 
       //add moves to history
       addHistory({ playerMove: playerMove, botMove: _botMove });
+
+      //get round result
       const _result = _botMove === playerMove ? null : gameRule[playerMove] === _botMove;
+
       const _roundMessage = _result === null ? 'DRAW' : _result ? 'Player win' : 'Bot win';
       setRoundResult(_roundMessage);
       updateScore(_result);
     };
 
-    const shuffle = (array) => {
+
+    const shufflePreferrance = (array: any[]) => {
       return array.sort(() => Math.random() - 0.5);
     };
 
-
+    //return a random move based on bot preference
     const getBotMove: MoveType = (moves): MoveType => {
       let i;
-
       for (i = 0; i < botMovesPreff.length; i++)
         botMovesPreff[i] += botMovesPreff[i - 1] || 0;
-
       const random = Math.random() * botMovesPreff[botMovesPreff.length - 1];
-
       for (i = 0; i < botMovesPreff.length; i++)
         if (botMovesPreff[i] > random)
           break;
-
       return moves[i];
     };
 
     const getFinalWinner = () => {
-      console.log('fff');
       if (scoreBot > scorePlayer) {
         return 'Bot win';
       } else if (scoreBot < scorePlayer) {
@@ -122,13 +126,13 @@ export const AppFC: FC<IAppProps> = ({
           <p><b>Player : </b>{scorePlayer} - <b>Bot :</b> {scoreBot}</p>
           {round > 19 ? <div><p>{getFinalWinner()}</p>
             <button onClick={() => {
-              setRoundResult("")
+              setRoundResult('');
               resetGame();
-            }}>Reset Game</button>
+            }}>Reset Game
+            </button>
           </div> : <Board getMove={(move) => checkPlayerMoves(move, round)} />}
         </div>
         <History history={history} />
-
       </div>
     );
   }
