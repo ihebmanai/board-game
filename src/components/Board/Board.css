@@ -1,0 +1,17 @@
+.Board {
+    display: flex;
+    flex-direction: row;
+    gap: 30px
+}
+
+.Board__element {
+    padding: 20px;
+    border: 1px black dashed;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: width 2s;
+
+}
+.Board__element:hover {
+background-color: antiquewhite;
+}
